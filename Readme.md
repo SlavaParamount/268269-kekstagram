@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Славик Парамонов](https://up.htmlacademy.ru/javascript/9/user/268269).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Коржиков](https://htmlacademy.ru/profile/id364723)
 
 ---
 
