@@ -1,3 +1,5 @@
+'use strict';
+
 var photoArray = [];
 
 for (var i=0; i < 25; i++) {
@@ -9,14 +11,13 @@ for (var i=0; i < 25; i++) {
 }
 
 function getUrl(){
-	var urlString = "photos/" + (i + 1) + ".jpg";
+	var urlString = 'photos/' + (i + 1) + '.jpg';
 	//console.log(urlString);
 	return urlString;
 }
 
 function getLikes(){
-	var a = Math.floor(Math.random() * (186)) + 15;
-	return a;
+	return Math.floor(Math.random() * (186)) + 15;
 }
 
 function getComents(){
@@ -37,23 +38,18 @@ function getComents(){
 	var comentAmount = Math.floor(Math.random() * 2 + 1);
 	
 	for (var i = 0; i < comentAmount; i++){
-		comentArray[i] = comentsBase[rand()];   //придумать чтобы не было одинаковых коментов? Удалить из массива строку, которую берем, а в 34 строке прописать вместо 5 ComentsBase.lenght-1?
+		comentArray[i] = comentsBase[rand()];   //придумать чтобы не было одинаковых коментов? Удалить из массива строку, которую берем, а в 36 строке прописать вместо 5 ComentsBase.lenght-1?
 	};
 	
 	return comentArray;
 	};
 
-
-	/*for (i = 1; i < 25; i++){
-		console.log(photoArray[i]);
-	} */
-
-var template = document.querySelector("#picture-template");
+var template = document.querySelector('#picture-template');
 var pool = document.querySelector('.pictures');
 
 for(i = 0; i < 25; i++) {
 	var element = template.content.cloneNode(true);
-	var pic = element.querySelector("img");
+	var pic = element.querySelector('img');
 	pic.src = photoArray[i].url;
 	element.querySelector('.picture-likes').textContent = photoArray[i].likes;
 	element.querySelector('.picture-comments').textContent = photoArray[i].coments.length;
@@ -66,8 +62,8 @@ var uploadForm = document.querySelector('.upload-overlay');
 uploadForm.classList.add('invisible');
 
 var overlay = document.querySelector('.gallery-overlay');
-overlay.classList.remove('invisible');
-var pic = overlay.querySelector(".gallery-overlay-image");
+var pic = overlay.querySelector('.gallery-overlay-image');
 pic.src = photoArray[1].url;
 overlay.querySelector('.likes-count').textContent = photoArray[1].likes;
 overlay.querySelector('.comments-count').textContent = photoArray[1].coments.length;
+overlay.classList.remove('invisible');
