@@ -52,6 +52,7 @@ function getElementPic(photo) {
   pic.src = photoArray[i].url;
   element.querySelector('.picture-likes').textContent = photoArray[i].likes;
   element.querySelector('.picture-comments').textContent = photoArray[i].coments.length;
+	element.querySelector('img').setAttribute('tabindex', '0');
   return element;
 }
 
@@ -64,9 +65,71 @@ for (i = 0; i < 25; i++) {
 var uploadForm = document.querySelector('.upload-overlay');
 uploadForm.classList.add('invisible');
 
-var overlay = document.querySelector('.gallery-overlay');
-var picGallery = overlay.querySelector('.gallery-overlay-image');
-picGallery.src = photoArray[1].url;
-overlay.querySelector('.likes-count').textContent = photoArray[1].likes;
-overlay.querySelector('.comments-count').textContent = photoArray[1].coments.length;
-overlay.classList.remove('invisible');
+function showOverlay(pic){
+	var overlay = document.querySelector('.gallery-overlay');
+	var picGallery = overlay.querySelector('.gallery-overlay-image');
+	picGallery.src = pic.src;
+	overlay.querySelector('.likes-count').textContent = pic.parentNode.querySelector('.picture-likes').textContent;
+	overlay.querySelector('.comments-count').textContent = pic.parentNode.querySelector('.picture-comments').textContent;
+	overlay.classList.remove('invisible');
+	
+};
+
+function hideOverlay(){
+	document.querySelector('.gallery-overlay').classList.add('invisible');
+};
+
+var openPic = document.querySelectorAll('.picture');
+var gallery = document.querySelector('.pictures');
+
+gallery.addEventListener('click', function(evt) {
+	if (evt.target.src) {
+	var clickedPic = evt.target;
+	showOverlay(clickedPic);
+	evt.preventDefault();
+	};
+}, true);
+
+var closePic = document.querySelector('.gallery-overlay-close');
+closePic.addEventListener('click', function() {
+	hideOverlay();
+});
+
+gallery.addEventListener('keydown', function(evt){
+	evt.preventDefault;
+	if (evt.keyCode == 13) {
+		var focusPic = evt.target.querySelector('img');
+		showOverlay(focusPic); //странно работает, сразу исчезает
+	};
+});
+
+document.addEventListener('keydown', function(evt){
+	if (evt.keyCode == 27 && document.querySelector('.gallery-overlay').classList.contains('invisible') == false) {
+		document.querySelector('.gallery-overlay').classList.add('invisible');
+	}
+	
+	if (evt.keyCode == 13 && document.querySelector('.gallery-overlay').classList.contains('invisible') == false && evt.target.classList.contains('gallery-overlay-close')) {
+		document.querySelector('.gallery-overlay').classList.add('invisible');
+	}
+});
+
+document.querySelector('#upload-select-image').classList.remove('invisible');
+
+document.querySelector('#upload-file').addEventListener('change', function(){
+	document.querySelector('.upload-overlay').classList.remove('invisible');
+});
+
+document.querySelector('.upload-form-cancel').addEventListener('click', function(){
+	document.querySelector('.upload-overlay').classList.add('invisible');
+});
+
+document.onkeydown = function(evt){
+	if (evt.keyCode == 27 && document.querySelector('.upload-overlay').classList.contains('invisible') == false && document.querySelector('.upload-form-description') != document.activeElement) {
+		document.querySelector('.upload-overlay').classList.add('invisible');
+	};
+	if (evt.code == 13 && document.querySelector('.upload-form-cancel') == document.activeElement) {
+		document.querySelector('.upload-overlay').classList.add('invisible');
+	};
+}
+
+//наверное, надо по функциям и переменным разбить все?
