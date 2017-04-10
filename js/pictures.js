@@ -180,7 +180,7 @@ document.querySelector('.upload-resize-controls-button-dec').addEventListener('c
     scale -= 25;
     setScale(scale);
   } else {
-    scale = 10;
+    scale = 25;
     setScale(scale);
   }
 });
