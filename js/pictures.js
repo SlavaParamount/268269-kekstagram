@@ -1,7 +1,7 @@
 'use strict';
 var photoArray = [];
 
-var comentsBase = [ // плохо, что эта ерунда все время при вызове функции выскакивает, но другого варианта не придумал
+var comentsBase = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце-концов это просто непрофессионально.',
@@ -72,7 +72,6 @@ function showOverlay(pic) {
   overlay.querySelector('.likes-count').textContent = pic.parentNode.querySelector('.picture-likes').textContent;
   overlay.querySelector('.comments-count').textContent = pic.parentNode.querySelector('.picture-comments').textContent;
   overlay.classList.remove('invisible');
-
 }
 
 function hideOverlay() {
