@@ -35,12 +35,24 @@
   }
 
   var filterName;
+  var progressBar = document.querySelector('.upload-filter-level');
 
   function setFilter(filter) {
     if (filterName) {
       document.querySelector('.filter-image-preview').classList.remove('filter-' + filterName);
     }
     filterName = filter.value;
+    setFilterLevel(91);
+    if (filterName === 'none') {
+      hideElement(handler);
+      hideElement(progressBar);
+			setFilterLevel(0);
+    } else {
+      if (isElementHidden(progressBar)) {
+        showElement(progressBar);
+        showElement(handler);
+      }
+    }
     document.querySelector('.filter-image-preview').classList.add('filter-' + filterName);
   }
 
@@ -71,4 +83,59 @@
     }
   });
 
+  var handler = document.querySelector('.upload-filter-level-pin');
+  var progressLine = document.querySelector('.upload-filter-level-val');
+
+  function setFilterLevel(lineWidth) {
+    handler.style.left = lineWidth + 'px';
+    progressLine.style.width = lineWidth + 'px';
+    var k = lineWidth / 455;
+    var stringLevel;
+    switch (filterName) {
+      case 'chrome':
+        stringLevel = 'grayscale(' + k + ')';
+        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        break;
+      case 'sepia':
+        stringLevel = 'sepia(' + k + ')';
+        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        break;
+      case 'marvin':
+        stringLevel = 'invert(' + k * 100 + '%)';
+        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        break;
+      case 'phobos':
+        stringLevel = 'blur(' + k * 3 + 'px)';
+        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        break;
+      case 'heat':
+        stringLevel = 'brightness(' + k * 3 + ')';
+        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        break;
+    }
+  }
+
+  handler.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+    var startX = evt.clientX;
+
+    document.addEventListener('mousemove', mouseMoveFunc);
+    document.addEventListener('mouseup', mouseUpFunc);
+    function mouseMoveFunc(moveEvt) {
+      moveEvt.preventDefault();
+      var shiftX = startX - moveEvt.clientX;
+      var currentLeft = handler.offsetLeft - shiftX;
+      if ((currentLeft > 0) && ((currentLeft) < 455)) {
+        setFilterLevel(currentLeft);
+      }
+      startX = moveEvt.clientX;
+    }
+
+
+    function mouseUpFunc(upEvt) {
+      upEvt.preventDefault();
+      document.removeEventListener('mousemove', mouseMoveFunc);
+      document.removeEventListener('mouseup', mouseUpFunc);
+    }
+  });
 })();
