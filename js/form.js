@@ -36,17 +36,21 @@
 
   var filterName;
   var progressBar = document.querySelector('.upload-filter-level');
+  hideElement(progressBar);
 
   function setFilter(filter) {
     if (filterName) {
       document.querySelector('.filter-image-preview').classList.remove('filter-' + filterName);
+    }
+    if (filter.value === 'none') {
+      document.querySelector('.filter-image-preview').style.filter = '';
     }
     filterName = filter.value;
     setFilterLevel(91);
     if (filterName === 'none') {
       hideElement(handler);
       hideElement(progressBar);
-			setFilterLevel(0);
+      setFilterLevel(0);
     } else {
       if (isElementHidden(progressBar)) {
         showElement(progressBar);
@@ -91,26 +95,29 @@
     progressLine.style.width = lineWidth + 'px';
     var k = lineWidth / 455;
     var stringLevel;
+    function applyLevel(string) {
+      document.querySelector('.filter-image-preview').style.filter = string;
+    }
     switch (filterName) {
       case 'chrome':
         stringLevel = 'grayscale(' + k + ')';
-        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        applyLevel(stringLevel);
         break;
       case 'sepia':
         stringLevel = 'sepia(' + k + ')';
-        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        applyLevel(stringLevel);
         break;
       case 'marvin':
         stringLevel = 'invert(' + k * 100 + '%)';
-        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        applyLevel(stringLevel);
         break;
       case 'phobos':
         stringLevel = 'blur(' + k * 3 + 'px)';
-        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        applyLevel(stringLevel);
         break;
       case 'heat':
         stringLevel = 'brightness(' + k * 3 + ')';
-        document.querySelector('.filter-image-preview').style.filter = stringLevel;
+        applyLevel(stringLevel);
         break;
     }
   }
