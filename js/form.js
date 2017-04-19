@@ -25,15 +25,16 @@
     }
   };
 
-  var scale = 55;
-  setScale(scale);
+  var scaleElement = document.querySelector('.upload-resize-controls');
 
   function setScale(val) {
     document.querySelector('.upload-resize-controls-value').value = val + '%';
     var stringVal = 'transform: scale(' + val / 100 + ')';
     document.querySelector('.filter-image-preview').style.cssText = stringVal;
   }
-
+  
+  initializeScale(scaleElement, setScale);
+  
   var filterName;
   var progressBar = document.querySelector('.upload-filter-level');
   hideElement(progressBar);
@@ -59,26 +60,6 @@
     }
     document.querySelector('.filter-image-preview').classList.add('filter-' + filterName);
   }
-
-  document.querySelector('.upload-resize-controls-button-inc').addEventListener('click', function () {
-    if (scale < 76) {
-      scale += 25;
-      setScale(scale);
-    } else {
-      scale = 100;
-      setScale(scale);
-    }
-  });
-
-  document.querySelector('.upload-resize-controls-button-dec').addEventListener('click', function () {
-    if (scale > 35) {
-      scale -= 25;
-      setScale(scale);
-    } else {
-      scale = 10;
-      setScale(scale);
-    }
-  });
 
   document.querySelector('.upload-filter-controls').addEventListener('click', function (evt) {
     if (evt.target.name === 'upload-filter') {
