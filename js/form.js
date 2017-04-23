@@ -32,13 +32,25 @@
     var stringVal = 'transform: scale(' + val / 100 + ')';
     document.querySelector('.filter-image-preview').style.cssText = stringVal;
   }
-  
+  var picElement = document.querySelector('.filter-image-preview');
+  var filterName;
+  var oldFilter;
+  window.filterName = '';
   initializeScale(scaleElement, setScale);
   
-  var filterName;
+  var applyFilter = function(filterElement){
+   // debugger;
+    if (window.filterName) {
+      picElement.classList.remove('filter-' + window.filterName);
+    };
+    window.filterName = filterElement.value;
+    document.querySelector('.filter-image-preview').classList.add('filter-' + window.filterName);
+    console.log(window.filterName);
+  };
+  
   var progressBar = document.querySelector('.upload-filter-level');
   hideElement(progressBar);
-
+  /*
   function setFilter(filter) {
     if (filterName) {
       document.querySelector('.filter-image-preview').classList.remove('filter-' + filterName);
@@ -58,13 +70,16 @@
         showElement(handler);
       }
     }
-    document.querySelector('.filter-image-preview').classList.add('filter-' + filterName);
+ //   document.querySelector('.filter-image-preview').classList.add('filter-' + filterName);
   }
-
+*/
   document.querySelector('.upload-filter-controls').addEventListener('click', function (evt) {
     if (evt.target.name === 'upload-filter') {
       var filterSelected = evt.target;
-      setFilter(filterSelected);
+      initializeFilters(filterSelected, applyFilter);
+      var defaultFilterLevel = document.querySelector('.upload-filter-level-line').offsetWidth * 0.2;
+      alert(defaultFilterLevel);
+      setFilterLevel(defaultFilterLevel);
     }
   });
 
@@ -79,7 +94,7 @@
     function applyLevel(string) {
       document.querySelector('.filter-image-preview').style.filter = string;
     }
-    switch (filterName) {
+    switch (window.filterName) {
       case 'chrome':
         stringLevel = 'grayscale(' + k + ')';
         applyLevel(stringLevel);
