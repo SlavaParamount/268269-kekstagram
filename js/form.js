@@ -34,20 +34,18 @@
   }
   var picElement = document.querySelector('.filter-image-preview');
   var filterName;
-  var oldFilter;
   window.filterName = '';
   initializeScale(scaleElement, setScale);
-  
-  var applyFilter = function(filterElement){
+
+  var applyFilter = function (filterElement) {
    // debugger;
     if (window.filterName) {
       picElement.classList.remove('filter-' + window.filterName);
-    };
+    }
     window.filterName = filterElement.value;
     document.querySelector('.filter-image-preview').classList.add('filter-' + window.filterName);
-    console.log(window.filterName);
   };
-  
+
   var progressBar = document.querySelector('.upload-filter-level');
   hideElement(progressBar);
   /*

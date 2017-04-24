@@ -1,8 +1,8 @@
 'use strict';
-var initializeScale = function(scaleElement, setScale){
+var initializeScale = function (scaleElement, setScale) {
   var scale = 55;
   setScale(scale);
-    scaleElement.querySelector('.upload-resize-controls-button-inc').addEventListener('click', function () {
+  scaleElement.querySelector('.upload-resize-controls-button-inc').addEventListener('click', function () {
     if (scale < 76) {
       scale += 25;
       setScale(scale);
