@@ -1,11 +1,19 @@
 'use strict';
 
-var initializeFilters = function (filterElement, applyFilter) {
+/* var initializeFilters = function (filterElement, applyFilter) {
   applyFilter(filterElement);
+
+};
+*/
+
+var initializeFilters = function (filterElement, applyFilter, oldFilter) {
+  var filterSelected = filterElement.value;
+  applyFilter(oldFilter, filterSelected);
   var progressBar = document.querySelector('.upload-filter-level');
-  if (window.filterName === 'none') {
+  if (filterSelected === 'none') {
     galleryUtils.hideElement(progressBar);
   } else {
     galleryUtils.showElement(progressBar);
   }
+  return filterSelected;
 };
