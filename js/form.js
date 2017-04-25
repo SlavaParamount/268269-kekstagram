@@ -5,8 +5,10 @@
   var uploadForm = window.galleryUtils.uploadForm;
   var hideElement = window.galleryUtils.hideElement;
   var isElementHidden = window.galleryUtils.isElementHidden;
+  var scale = 55;
 
-  document.querySelector('#upload-select-image').classList.remove(hiddenClass);
+  hideElement(uploadForm);
+  showElement(document.querySelector('.upload-form'));
 
   document.querySelector('#upload-file').addEventListener('change', function () {
     showElement(uploadForm);
@@ -26,21 +28,26 @@
   };
 
   var scaleElement = document.querySelector('.upload-resize-controls');
-
-  function setScale(val) {
+  scaleElement.addEventListener('click', function (evt) {
+    
+    function setScale(val) {
     document.querySelector('.upload-resize-controls-value').value = val + '%';
     var stringVal = 'transform: scale(' + val / 100 + ')';
     document.querySelector('.filter-image-preview').style.cssText = stringVal;
   }
+    initializeScale(evt.target, setScale);
+  })
+
+  
   var picElement = document.querySelector('.filter-image-preview');
-  var filterName;
   window.filterName = '';
-  initializeScale(scaleElement, setScale);
 
   var applyFilter = function (filterElement) {
-   // debugger;
     if (window.filterName) {
       picElement.classList.remove('filter-' + window.filterName);
+    }
+    if (filterElement.value === 'none'){
+      document.querySelector('.filter-image-preview').classList.remove('filter-' + window.filterName);  //сделать нормально
     }
     window.filterName = filterElement.value;
     document.querySelector('.filter-image-preview').classList.add('filter-' + window.filterName);
@@ -95,28 +102,24 @@
     switch (window.filterName) {
       case 'chrome':
         stringLevel = 'grayscale(' + k + ')';
-        applyLevel(stringLevel);
         break;
       case 'sepia':
         stringLevel = 'sepia(' + k + ')';
-        applyLevel(stringLevel);
         break;
       case 'marvin':
         stringLevel = 'invert(' + k * 100 + '%)';
-        applyLevel(stringLevel);
         break;
       case 'phobos':
         stringLevel = 'blur(' + k * 3 + 'px)';
-        applyLevel(stringLevel);
         break;
       case 'heat':
         stringLevel = 'brightness(' + k * 3 + ')';
-        applyLevel(stringLevel);
         break;
     }
+    applyLevel(stringLevel);
   }
 
-  handler.addEventListener('mousedown', function (evt) {
+  handler.addEventListener('mousedown', function (evt) {   //весь код ползунка перенести в iniatalize-filters
     evt.preventDefault();
     var startX = evt.clientX;
 

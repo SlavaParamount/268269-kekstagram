@@ -1,5 +1,5 @@
 'use strict';
-var photoArray = [];
+/*var photoArray = [];
 
 var comentsBase = [
   'Всё отлично!',
@@ -45,7 +45,7 @@ function getComents() {
 }
 var template = document.querySelector('#picture-template');
 var pool = document.querySelector('.pictures');
-
+*/ 
 function getElementPic(photo) {
   var element = template.content.cloneNode(true);
   var pic = element.querySelector('img');
@@ -56,9 +56,11 @@ function getElementPic(photo) {
   return element;
 }
 
-for (i = 0; i < 25; i++) {
+function useData (data){
+for (i = 0; data.length; i++) {
   pool.appendChild(getElementPic(photoArray[i]));
 }
+  };
 
 // разбить на функции?
 
