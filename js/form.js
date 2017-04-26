@@ -4,25 +4,35 @@
   var uploadForm = window.galleryUtils.uploadForm;
   var hideElement = window.galleryUtils.hideElement;
   var isElementHidden = window.galleryUtils.isElementHidden;
+  var picElement = document.querySelector('.filter-image-preview');
+  window.filterName = '';
 
   hideElement(uploadForm);
+
   showElement(document.querySelector('.upload-form'));
 
   document.querySelector('#upload-file').addEventListener('change', function () {
+    setFilterLevel(91);
+    applyFilter(oldFilter, 'none');
     showElement(uploadForm);
     document.querySelector('.filter-image-preview').style.cssText = 'transform: scale(0.55)';
   });
 
   document.querySelector('.upload-form-cancel').addEventListener('click', function () {
     hideElement(uploadForm);
+    document.querySelector('.upload-form').reset();
   });
 
   document.onkeydown = function (evt) {
     if (evt.keyCode === 27 && !isElementHidden(uploadForm) && document.querySelector('.upload-form-description') !== document.activeElement) {
+      applyFilter('none', oldFilter);
       hideElement(uploadForm);
+      document.querySelector('.upload-form').reset();
     }
     if (evt.code === 13 && document.querySelector('.upload-form-cancel') === document.activeElement) {
+      applyFilter('none', oldFilter);
       hideElement(uploadForm);
+      document.querySelector('.upload-form').reset();
     }
   };
 
@@ -37,9 +47,6 @@
     initializeScale(evt.target, setScale);
   });
 
-
-  var picElement = document.querySelector('.filter-image-preview');
-  window.filterName = '';
 
   var applyFilter = function (oldFilter, newFilter) {
     picElement.classList.remove('filter-' + oldFilter);  // сделать нормально
