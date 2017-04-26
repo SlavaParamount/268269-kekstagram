@@ -177,11 +177,11 @@ document.querySelector('.upload-resize-controls-button-inc').addEventListener('c
 });
 
 document.querySelector('.upload-resize-controls-button-dec').addEventListener('click', function () {
-  if (scale > 35) {
+  if (scale > 50) {
     scale -= 25;
     setScale(scale);
   } else {
-    scale = 10;
+    scale = 25;
     setScale(scale);
   }
 });
