@@ -9,7 +9,8 @@
     xhr.send();
     var error;
     xhr.addEventListener('load', function () {
-
+      var filtersBlock = document.querySelector('.filters');
+      filtersBlock.classList.remove('invisible');
       switch (xhr.status) {
         case 200:
           var dataParsed = JSON.parse(xhr.responseText);

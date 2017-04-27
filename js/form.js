@@ -38,13 +38,13 @@
 
   var scaleElement = document.querySelector('.upload-resize-controls');
   scaleElement.addEventListener('click', function (evt) {
-
     function setScale(val) {
       document.querySelector('.upload-resize-controls-value').value = val + '%';
       var stringVal = 'transform: scale(' + val / 100 + ')';
       document.querySelector('.filter-image-preview').style.cssText = stringVal;
     }
-    initializeScale(evt.target, setScale);
+    window.initializeScale(evt.target, setScale);
+
   });
 
 
@@ -83,7 +83,7 @@
   document.querySelector('.upload-filter-controls').addEventListener('click', function (evt) {
     if (evt.target.name === 'upload-filter') {
       var filterSelected = evt.target;
-      oldFilter = initializeFilters(filterSelected, applyFilter, oldFilter);
+      oldFilter = window.initializeFilters(filterSelected, applyFilter, oldFilter);
       var defaultFilterLevel = document.querySelector('.upload-filter-level-line').offsetWidth * 0.2;
       setFilterLevel(defaultFilterLevel);
     }
