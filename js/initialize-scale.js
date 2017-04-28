@@ -20,5 +20,7 @@
         setScale(currentScale);
         break;
     }
+    window.setFilterLevel(window.currentLeft);
   };
+
 })(window);

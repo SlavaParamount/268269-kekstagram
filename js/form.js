@@ -63,14 +63,14 @@
       var filterSelected = evt.target;
       oldFilter = window.initializeFilters(filterSelected, applyFilter, oldFilter);
       var defaultFilterLevel = document.querySelector('.upload-filter-level-line').offsetWidth * 0.2;
-      setFilterLevel(defaultFilterLevel);
+      window.setFilterLevel(defaultFilterLevel);
     }
   });
 
   var handler = document.querySelector('.upload-filter-level-pin');
   var progressLine = document.querySelector('.upload-filter-level-val');
 
-  function setFilterLevel(lineWidth) {
+  window.setFilterLevel = function (lineWidth) {
     handler.style.left = lineWidth + 'px';
     progressLine.style.width = lineWidth + 'px';
     var k = lineWidth / 455;
@@ -96,7 +96,7 @@
         break;
     }
     applyLevel(stringLevel);
-  }
+  };
 
   handler.addEventListener('mousedown', function (evt) {   // весь код ползунка перенести в iniatalize-filters
     evt.preventDefault();
@@ -107,9 +107,9 @@
     function mouseMoveFunc(moveEvt) {
       moveEvt.preventDefault();
       var shiftX = startX - moveEvt.clientX;
-      var currentLeft = handler.offsetLeft - shiftX;
-      if ((currentLeft > 0) && ((currentLeft) < 455)) {
-        setFilterLevel(currentLeft);
+      window.currentLeft = handler.offsetLeft - shiftX;
+      if ((window.currentLeft > 0) && ((window.currentLeft) < 455)) {
+        window.setFilterLevel(window.currentLeft);
       }
       startX = moveEvt.clientX;
     }
