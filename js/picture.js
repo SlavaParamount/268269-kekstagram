@@ -17,6 +17,6 @@
       pool.appendChild(getElementPic(photoArray[b]));
     }
   }
-  window.load('', onLoad);
+  window.load('https://intensive-javascript-server-kjgvxfepjl.now.sh/kekstagram/data', onLoad);
 
 })(window);

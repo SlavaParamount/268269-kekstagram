@@ -15,7 +15,7 @@
       });
     }
 
-    xhr.open('GET', 'https://intensive-javascript-server-kjgvxfepjl.now.sh/kekstagram/data');
+    xhr.open('GET', url);
     xhr.send();
     var error;
     xhr.addEventListener('load', function () {
