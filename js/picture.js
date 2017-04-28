@@ -14,7 +14,7 @@
       element.querySelector('img').setAttribute('tabindex', '0');
       return element;
     }
-    for (var b = 0; b < 25; b++) {
+    for (var b = 0; b < photoArray.length; b++) {
       pool.appendChild(getElementPic(photoArray[b]));
     }
   }
