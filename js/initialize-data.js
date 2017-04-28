@@ -34,7 +34,7 @@
         break;
       case 'filter-discussed':
        // debugger;
-        sortedPics = pics;
+        sortedPics = pics.slice();
         sortedPics.sort(function (first, second) {
           if (first.comments.length > second.comments.length) {
             return -1;
