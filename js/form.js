@@ -12,9 +12,9 @@
   showElement(document.querySelector('.upload-form'));
 
   document.querySelector('#upload-file').addEventListener('change', function () {
-    setFilterLevel(91);
     applyFilter(oldFilter, 'none');
     showElement(uploadForm);
+    hideElement(document.querySelector('.upload-filter-level'));
     document.querySelector('.filter-image-preview').style.cssText = 'transform: scale(0.55)';
   });
 
@@ -56,29 +56,7 @@
     picElement.classList.add('filter-' + newFilter);
   };
   hideElement(document.querySelector('.upload-filter-level'));
-  /*
-  function setFilter(filter) {
-    if (filterName) {
-      document.querySelector('.filter-image-preview').classList.remove('filter-' + filterName);
-    }
-    if (filter.value === 'none') {
-      document.querySelector('.filter-image-preview').style.filter = '';
-    }
-    filterName = filter.value;
-    setFilterLevel(91);
-    if (filterName === 'none') {
-      hideElement(handler);
-      hideElement(progressBar);
-      setFilterLevel(0);
-    } else {
-      if (isElementHidden(progressBar)) {
-        showElement(progressBar);
-        showElement(handler);
-      }
-    }
- //   document.querySelector('.filter-image-preview').classList.add('filter-' + filterName);
-  }
-*/
+
   var oldFilter;
   document.querySelector('.upload-filter-controls').addEventListener('click', function (evt) {
     if (evt.target.name === 'upload-filter') {
