@@ -28,6 +28,7 @@ window.galleryUtils = (function () {
   });
 
   gallery.addEventListener('click', function (evt) {
+    evt.preventDefault();
     if (evt.target.src) {
       evt.preventDefault();
       window.focusPic = evt.target;
