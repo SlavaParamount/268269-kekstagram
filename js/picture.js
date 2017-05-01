@@ -29,7 +29,7 @@
 
       if (evt.target.classList.contains('filters-radio')) {
         window.galleryClear();
-        window.debounce(window.initializeData(evt.target, dataParsed, showSorted));
+        window.debounce(window.initializeData(evt.target, window.dataParsed, showSorted));
       }
     });
 

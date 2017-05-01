@@ -4,13 +4,13 @@
     var sortedPics = [];
 
     function shuffle(arrayToShuffle) {
-      var j;
-      var x;
+      var exchangeElement;
+      var rand;
       for (var i = arrayToShuffle.length; i; i--) {
-        j = Math.floor(Math.random() * i);
-        x = arrayToShuffle[i - 1];
-        arrayToShuffle[i - 1] = arrayToShuffle[j];
-        arrayToShuffle[j] = x;
+        rand = Math.floor(Math.random() * i);
+        exchangeElement = arrayToShuffle[i - 1];
+        arrayToShuffle[i - 1] = arrayToShuffle[rand];
+        arrayToShuffle[rand] = exchangeElement;
       }
     }
 

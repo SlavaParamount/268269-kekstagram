@@ -5,10 +5,10 @@
 
     switch (scaleElement) {
       case document.querySelector('.upload-resize-controls-button-dec'):
-        if ((currentScale) > 35) {
+        if ((currentScale) > 49) {
           currentScale -= 25;
         } else {
-          currentScale = 10;
+          currentScale = 25;
         }
         setScale(currentScale);
         break;

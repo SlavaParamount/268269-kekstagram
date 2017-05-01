@@ -29,7 +29,6 @@
   });
 
   document.onkeydown = function (evt) {
-
     if (evt.keyCode === 27 && !isElementHidden(uploadForm) && document.querySelector('.upload-form-description') !== document.activeElement) {
       applyFilter('none', oldFilter);
       hideElement(uploadForm);
