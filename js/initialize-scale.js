@@ -2,12 +2,13 @@
 (function (window) {
   window.initializeScale = function (scaleElement, setScale) {
     var currentScale = parseInt(document.querySelector('.upload-resize-controls-value').value, 10);
+
     switch (scaleElement) {
       case document.querySelector('.upload-resize-controls-button-dec'):
-        if ((currentScale) > 35) {
+        if ((currentScale) > 49) {
           currentScale -= 25;
         } else {
-          currentScale = 10;
+          currentScale = 25;
         }
         setScale(currentScale);
         break;
@@ -20,6 +21,7 @@
         setScale(currentScale);
         break;
     }
+
     window.setFilterLevel(window.currentLeft);
   };
 

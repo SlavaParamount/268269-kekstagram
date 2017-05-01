@@ -8,34 +8,18 @@
     }
 
 
-    function galleryClear() {
-      var pictures = document.querySelectorAll('.picture');
-      [].forEach.call(pictures, function (it) {
-        it.parentNode.removeChild(it);
-      });
-    }
-
     xhr.open('GET', url);
     xhr.send();
     var error;
-    xhr.addEventListener('load', function () {
-      var filtersBlock = document.querySelector('.filters');
-      filtersBlock.classList.remove('hidden');
-      filtersBlock.addEventListener('click', function (evt) {
-        function showSorted(arr) {
-          onLoad(arr);
-        }
-        if (evt.target.classList.contains('filters-radio')) {
-          galleryClear();
 
-          window.debounce(window.initializeData(evt.target, dataParsed, showSorted));
-        }
-      });
+    xhr.addEventListener('load', function () {
+      window.filtersBlock = document.querySelector('.filters');
+      window.filtersBlock.classList.remove('hidden');
 
       switch (xhr.status) {
         case 200:
-          var dataParsed = JSON.parse(xhr.responseText);
-          onLoad(dataParsed);
+          window.dataParsed = JSON.parse(xhr.responseText);
+          onLoad(window.dataParsed);
           break;
         case 400:
           error = 'Неверный запрос';
@@ -50,8 +34,10 @@
           error = 'Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText;
       }
     });
+
     if (error) {
       onError(error);
     }
+
   });
 })();

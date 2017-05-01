@@ -809,3 +809,7 @@ input[type=radio]:checked + .upload-filter-label .upload-filter-preview {
 .footer-social-item-vk {
   background-position: -84px 0;
 }
+
+.upload-form-description:invalid {
+  border: 2px solid #CD5C5C;
+}

@@ -1,5 +1,5 @@
 'use strict';
-window.overlayFunc = (function () {
+window.showPicOverlay = (function () {
   var pic = window.focusPic;
   var overlay = document.querySelector('.gallery-overlay');
   var picGallery = overlay.querySelector('.gallery-overlay-image');

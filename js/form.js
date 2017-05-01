@@ -6,6 +6,9 @@
   var isElementHidden = window.galleryUtils.isElementHidden;
   var picElement = document.querySelector('.filter-image-preview');
   window.filterName = '';
+  var defaultScale = 100;
+  var form = document.querySelector('.upload-filter');
+  var commentField = form.querySelector('.upload-form-description');
 
   hideElement(uploadForm);
 
@@ -14,8 +17,10 @@
   document.querySelector('#upload-file').addEventListener('change', function () {
     applyFilter(oldFilter, 'none');
     showElement(uploadForm);
+    commentField.style.border = '';
+    form.reset();
     hideElement(document.querySelector('.upload-filter-level'));
-    document.querySelector('.filter-image-preview').style.cssText = 'transform: scale(0.55)';
+    setScale(defaultScale);
   });
 
   document.querySelector('.upload-form-cancel').addEventListener('click', function () {
@@ -29,6 +34,7 @@
       hideElement(uploadForm);
       document.querySelector('.upload-form').reset();
     }
+
     if (evt.code === 13 && document.querySelector('.upload-form-cancel') === document.activeElement) {
       applyFilter('none', oldFilter);
       hideElement(uploadForm);
@@ -36,15 +42,16 @@
     }
   };
 
-  var scaleElement = document.querySelector('.upload-resize-controls');
-  scaleElement.addEventListener('click', function (evt) {
-    function setScale(val) {
-      document.querySelector('.upload-resize-controls-value').value = val + '%';
-      var stringVal = 'transform: scale(' + val / 100 + ')';
-      document.querySelector('.filter-image-preview').style.cssText = stringVal;
-    }
-    window.initializeScale(evt.target, setScale);
+  function setScale(val) {
+    document.querySelector('.upload-resize-controls-value').value = val + '%';
+    var stringVal = 'transform: scale(' + val / 100 + ')';
+    document.querySelector('.filter-image-preview').style.cssText = stringVal;
+  }
 
+  var scaleElement = document.querySelector('.upload-resize-controls');
+
+  scaleElement.addEventListener('click', function (evt) {
+    window.initializeScale(evt.target, setScale);
   });
 
 
@@ -55,9 +62,11 @@
     }
     picElement.classList.add('filter-' + newFilter);
   };
+
   hideElement(document.querySelector('.upload-filter-level'));
 
   var oldFilter;
+
   document.querySelector('.upload-filter-controls').addEventListener('click', function (evt) {
     if (evt.target.name === 'upload-filter') {
       var filterSelected = evt.target;
@@ -78,6 +87,7 @@
     function applyLevel(string) {
       document.querySelector('.filter-image-preview').style.filter = string;
     }
+
     switch (oldFilter) {
       case 'chrome':
         stringLevel = 'grayscale(' + k + ')';
@@ -98,13 +108,14 @@
     applyLevel(stringLevel);
   };
 
-  handler.addEventListener('mousedown', function (evt) {   // весь код ползунка перенести в iniatalize-filters
+  handler.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startX = evt.clientX;
 
-    document.addEventListener('mousemove', mouseMoveFunc);
-    document.addEventListener('mouseup', mouseUpFunc);
-    function mouseMoveFunc(moveEvt) {
+    document.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseup', mouseUp);
+
+    function mouseMove(moveEvt) {
       moveEvt.preventDefault();
       var shiftX = startX - moveEvt.clientX;
       window.currentLeft = handler.offsetLeft - shiftX;
@@ -114,11 +125,19 @@
       startX = moveEvt.clientX;
     }
 
-
-    function mouseUpFunc(upEvt) {
+    function mouseUp(upEvt) {
       upEvt.preventDefault();
-      document.removeEventListener('mousemove', mouseMoveFunc);
-      document.removeEventListener('mouseup', mouseUpFunc);
+      document.removeEventListener('mousemove', mouseMove);
+      document.removeEventListener('mouseup', mouseUp);
+    }
+  });
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    if ((commentField.value.length < 30) || (commentField.value.length > 150)) {
+      commentField.style.border = '2px solid #CD5C5C';
+    } else {
+      commentField.style.border = '';
     }
   });
 })();
