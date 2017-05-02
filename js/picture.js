@@ -1,8 +1,20 @@
 'use strict';
-// отрисовка миниатюры
+// отрисовка миниатюр
 (function (window) {
   var template = document.querySelector('#picture-template');
   var picturesContainer = document.querySelector('.pictures');
+  var sortPics = document.querySelector('.filters');
+
+  sortPics.addEventListener('click', function (evt) {
+    function showSorted(arr) {
+      onLoad(arr);
+    }
+
+    if (evt.target.classList.contains('filters-radio')) {
+      window.galleryClear();
+      window.debounce(window.initializeData(evt.target, window.dataParsed, showSorted));
+    }
+  });
 
   function onLoad(photoArray) {
     function getElementPic(photo) {
@@ -22,20 +34,9 @@
       });
     };
 
-    window.filtersBlock.addEventListener('click', function (evt) {
-      function showSorted(arr) {
-        onLoad(arr);
-      }
-
-      if (evt.target.classList.contains('filters-radio')) {
-        window.galleryClear();
-        window.debounce(window.initializeData(evt.target, window.dataParsed, showSorted));
-      }
+    photoArray.forEach(function (it) {
+      picturesContainer.appendChild(getElementPic(it));
     });
-
-    for (var i = 0; i < photoArray.length - 1; i++) {
-      picturesContainer.appendChild(getElementPic(photoArray[i]));
-    }
   }
 
   window.load('https://intensive-javascript-server-kjgvxfepjl.now.sh/kekstagram/data', onLoad);

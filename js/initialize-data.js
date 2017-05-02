@@ -20,7 +20,6 @@
         break;
       case 'filter-new':
         var picsIndex = [];
-
         for (var i = 0; i < 25; i++) {
           picsIndex.push(i);
         }
@@ -30,7 +29,6 @@
         for (i = 0; i < 10; i++) {
           sortedPics.push(pics[picsIndex[i]]);
         }
-
         showSorted(sortedPics);
 
         break;
@@ -38,7 +36,7 @@
         sortedPics = pics.slice();
         sortedPics.sort(function (first, second) {
 
-          if (first.comments.length > second.comments.length) {
+          if (first.comments.length > second.comments.length) { // убрать if
             return -1;
           } else if (first.comments.length < second.comments.length) {
             return 1;

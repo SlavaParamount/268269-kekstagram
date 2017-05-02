@@ -1,10 +1,10 @@
 'use strict';
-window.showPicOverlay = (function () {
-  var pic = window.focusPic;
+window.showPicOverlay = (function (pic) {
+  var picParent = pic.parentNode;
   var overlay = document.querySelector('.gallery-overlay');
   var picGallery = overlay.querySelector('.gallery-overlay-image');
   picGallery.src = pic.src;
-  overlay.querySelector('.likes-count').textContent = pic.parentNode.querySelector('.picture-likes').textContent;
-  overlay.querySelector('.comments-count').textContent = pic.parentNode.querySelector('.picture-comments').textContent;
-  overlay.classList.remove('invisible');
+  overlay.querySelector('.likes-count').textContent = picParent.querySelector('.picture-likes').textContent;
+  overlay.querySelector('.comments-count').textContent = picParent.querySelector('.picture-comments').textContent;
+  window.galleryUtils.showElement(overlay);
 });

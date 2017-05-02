@@ -2,21 +2,23 @@
 (function (window) {
   window.initializeScale = function (scaleElement, setScale) {
     var currentScale = parseInt(document.querySelector('.upload-resize-controls-value').value, 10);
-
+    var scaleStep = 25;
+    var minScale = 25;
+    var maxScale = 100;
     switch (scaleElement) {
       case document.querySelector('.upload-resize-controls-button-dec'):
-        if ((currentScale) > 49) {
-          currentScale -= 25;
+        if ((currentScale) > (minScale + scaleStep)) {
+          currentScale -= scaleStep;
         } else {
-          currentScale = 25;
+          currentScale = minScale;
         }
         setScale(currentScale);
         break;
       case document.querySelector('.upload-resize-controls-button-inc'):
-        if ((currentScale) < 75) {
-          currentScale += 25;
+        if ((currentScale) < (maxScale - scaleStep)) {
+          currentScale += scaleStep;
         } else {
-          currentScale = 100;
+          currentScale = maxScale;
         }
         setScale(currentScale);
         break;

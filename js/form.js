@@ -1,14 +1,19 @@
 'use strict';
 (function () {
   var showElement = window.galleryUtils.showElement;
-  var uploadForm = window.galleryUtils.uploadForm;
   var hideElement = window.galleryUtils.hideElement;
   var isElementHidden = window.galleryUtils.isElementHidden;
   var picElement = document.querySelector('.filter-image-preview');
   window.filterName = '';
   var defaultScale = 100;
   var form = document.querySelector('.upload-filter');
+  var uploadForm = document.querySelector('.upload-overlay');
   var commentField = form.querySelector('.upload-form-description');
+  var cancelButton = document.querySelector('.upload-form-cancel');
+  window.escCode = 27;
+  window.enterCode = 13;
+  var chooseFileForm = document.querySelector('.upload-form');
+  var filterLevel = document.querySelector('.upload-filter-level');
 
   hideElement(uploadForm);
 
@@ -19,26 +24,26 @@
     showElement(uploadForm);
     commentField.style.border = '';
     form.reset();
-    hideElement(document.querySelector('.upload-filter-level'));
+    hideElement(filterLevel);
     setScale(defaultScale);
   });
 
-  document.querySelector('.upload-form-cancel').addEventListener('click', function () {
+  cancelButton.addEventListener('click', function () {
     hideElement(uploadForm);
-    document.querySelector('.upload-form').reset();
+    chooseFileForm.reset();
   });
 
   document.onkeydown = function (evt) {
-    if (evt.keyCode === 27 && !isElementHidden(uploadForm) && document.querySelector('.upload-form-description') !== document.activeElement) {
+    if (evt.keyCode === window.escCode && !isElementHidden(uploadForm) && commentField !== document.activeElement) {
       applyFilter('none', oldFilter);
       hideElement(uploadForm);
-      document.querySelector('.upload-form').reset();
+      chooseFileForm.reset();
     }
 
-    if (evt.code === 13 && document.querySelector('.upload-form-cancel') === document.activeElement) {
+    if (evt.code === window.enterCode && cancelButton === document.activeElement) {
       applyFilter('none', oldFilter);
       hideElement(uploadForm);
-      document.querySelector('.upload-form').reset();
+      chooseFileForm.reset();
     }
   };
 
@@ -63,7 +68,7 @@
     picElement.classList.add('filter-' + newFilter);
   };
 
-  hideElement(document.querySelector('.upload-filter-level'));
+  hideElement(filterLevel);
 
   var oldFilter;
 
@@ -78,11 +83,12 @@
 
   var handler = document.querySelector('.upload-filter-level-pin');
   var progressLine = document.querySelector('.upload-filter-level-val');
+  var lineMaxWidth = 455;
 
   window.setFilterLevel = function (lineWidth) {
     handler.style.left = lineWidth + 'px';
     progressLine.style.width = lineWidth + 'px';
-    var k = lineWidth / 455;
+    var k = lineWidth / lineMaxWidth;
     var stringLevel;
     function applyLevel(string) {
       document.querySelector('.filter-image-preview').style.filter = string;
@@ -119,7 +125,7 @@
       moveEvt.preventDefault();
       var shiftX = startX - moveEvt.clientX;
       window.currentLeft = handler.offsetLeft - shiftX;
-      if ((window.currentLeft > 0) && ((window.currentLeft) < 455)) {
+      if ((window.currentLeft > 0) && ((window.currentLeft) < lineMaxWidth)) {
         window.setFilterLevel(window.currentLeft);
       }
       startX = moveEvt.clientX;
@@ -132,9 +138,12 @@
     }
   });
 
+  var minTextLength = 30;
+  var maxTextLength = 150;
+
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    if ((commentField.value.length < 30) || (commentField.value.length > 150)) {
+    if ((commentField.value.length < minTextLength) || (commentField.value.length > maxTextLength)) {
       commentField.style.border = '2px solid #CD5C5C';
     } else {
       commentField.style.border = '';

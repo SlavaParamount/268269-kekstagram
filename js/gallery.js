@@ -6,13 +6,13 @@ window.galleryUtils = (function () {
   var uploadForm = document.querySelector('.upload-overlay');
   var closePic = document.querySelector('.gallery-overlay-close');
   var gallery = document.querySelector('.pictures');
-
+  var focusPic;
   function showElement(element) {
     element.classList.remove(hiddenClass);
   }
 
   function hideOverlay() {
-    document.querySelector('.gallery-overlay').classList.add('invisible');
+    galleryOverlay.classList.add(hiddenClass);
   }
 
   function hideElement(element) {
@@ -31,8 +31,8 @@ window.galleryUtils = (function () {
   gallery.addEventListener('click', function (evt) {
     evt.preventDefault();
     if (evt.target.src) {
-      window.focusPic = evt.target;
-      window.showPicOverlay();
+      focusPic = evt.target;
+      window.showPicOverlay(focusPic);
     }
   }, true);
 
@@ -40,21 +40,21 @@ window.galleryUtils = (function () {
     if (evt.keyCode === 13) {
       evt.preventDefault();
       if (evt.target.src) {
-        window.focusPic = evt.target;
+        focusPic = evt.target;
       } else {
-        window.focusPic = evt.target.querySelector('img');
+        focusPic = evt.target.querySelector('img');
       }
-      window.showPicOverlay();
+      window.showPicOverlay(focusPic);
     }
   });
 
 
   document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 27 && galleryOverlay.classList.contains(hiddenClass) === false) {
+    if (evt.keyCode === window.escCode && !galleryOverlay.classList.contains(hiddenClass)) {
       hideElement(galleryOverlay);
     }
 
-    if (evt.keyCode === 13 && !isElementHidden(galleryOverlay) && evt.target.classList.contains('gallery-overlay-close')) {
+    if (evt.keyCode === window.enterCode && !isElementHidden(galleryOverlay) && evt.target.classList.contains('gallery-overlay-close')) {
       hideElement(galleryOverlay);
     }
   });
@@ -62,7 +62,6 @@ window.galleryUtils = (function () {
   return {
     uploadForm: uploadForm,
     showElement: showElement,
-    hiddenClass: hiddenClass,
     hideElement: hideElement,
     isElementHidden: isElementHidden
   };
