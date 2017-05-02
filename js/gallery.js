@@ -4,9 +4,10 @@ window.galleryUtils = (function () {
   var hiddenClass = 'invisible';
   var galleryOverlay = document.querySelector('.gallery-overlay');
   var uploadForm = document.querySelector('.upload-overlay');
-  var closePic = document.querySelector('.gallery-overlay-close');
+  var closePicture = document.querySelector('.gallery-overlay-close');
   var gallery = document.querySelector('.pictures');
-  var focusPic;
+  var focusPicture;
+
   function showElement(element) {
     element.classList.remove(hiddenClass);
   }
@@ -24,37 +25,37 @@ window.galleryUtils = (function () {
   }
 
 
-  closePic.addEventListener('click', function () {
+  closePicture.addEventListener('click', function () {
     hideOverlay();
   });
 
   gallery.addEventListener('click', function (evt) {
     evt.preventDefault();
     if (evt.target.src) {
-      focusPic = evt.target;
-      window.showPicOverlay(focusPic);
+      focusPicture = evt.target;
+      window.showPicOverlay(focusPicture);
     }
   }, true);
 
   gallery.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 13) {
+    if (evt.keyCode === window.ENTER_CODE) {
       evt.preventDefault();
       if (evt.target.src) {
-        focusPic = evt.target;
+        focusPicture = evt.target;
       } else {
-        focusPic = evt.target.querySelector('img');
+        focusPicture = evt.target.querySelector('img');
       }
-      window.showPicOverlay(focusPic);
+      window.showPicOverlay(focusPicture);
     }
   });
 
 
   document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.escCode && !galleryOverlay.classList.contains(hiddenClass)) {
+    if (evt.keyCode === window.ESC_CODE && !galleryOverlay.classList.contains(hiddenClass)) {
       hideElement(galleryOverlay);
     }
 
-    if (evt.keyCode === window.enterCode && !isElementHidden(galleryOverlay) && evt.target.classList.contains('gallery-overlay-close')) {
+    if (evt.keyCode === window.ENTER_CODE && !isElementHidden(galleryOverlay) && evt.target.classList.contains('gallery-overlay-close')) {
       hideElement(galleryOverlay);
     }
   });

@@ -36,13 +36,8 @@
         sortedPics = pics.slice();
         sortedPics.sort(function (first, second) {
 
-          if (first.comments.length > second.comments.length) { // убрать if
-            return -1;
-          } else if (first.comments.length < second.comments.length) {
-            return 1;
-          } else {
-            return 0;
-          }
+          return Math.sign(second.comments.length - first.comments.length);
+
         });
 
         showSorted(sortedPics);

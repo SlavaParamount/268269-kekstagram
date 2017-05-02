@@ -7,19 +7,13 @@
     var maxScale = 100;
     switch (scaleElement) {
       case document.querySelector('.upload-resize-controls-button-dec'):
-        if ((currentScale) > (minScale + scaleStep)) {
-          currentScale -= scaleStep;
-        } else {
-          currentScale = minScale;
-        }
+        currentScale -= scaleStep;
+        currentScale = Math.max(currentScale, minScale);
         setScale(currentScale);
         break;
       case document.querySelector('.upload-resize-controls-button-inc'):
-        if ((currentScale) < (maxScale - scaleStep)) {
-          currentScale += scaleStep;
-        } else {
-          currentScale = maxScale;
-        }
+        currentScale += scaleStep;
+        currentScale = Math.min(currentScale, maxScale);
         setScale(currentScale);
         break;
     }

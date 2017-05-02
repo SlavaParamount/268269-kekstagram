@@ -10,8 +10,8 @@
   var uploadForm = document.querySelector('.upload-overlay');
   var commentField = form.querySelector('.upload-form-description');
   var cancelButton = document.querySelector('.upload-form-cancel');
-  window.escCode = 27;
-  window.enterCode = 13;
+  window.ESC_CODE = 27;
+  window.ENTER_CODE = 13;
   var chooseFileForm = document.querySelector('.upload-form');
   var filterLevel = document.querySelector('.upload-filter-level');
 
@@ -34,13 +34,13 @@
   });
 
   document.onkeydown = function (evt) {
-    if (evt.keyCode === window.escCode && !isElementHidden(uploadForm) && commentField !== document.activeElement) {
+    if (evt.keyCode === window.ESC_CODE && !isElementHidden(uploadForm) && commentField !== document.activeElement) {
       applyFilter('none', oldFilter);
       hideElement(uploadForm);
       chooseFileForm.reset();
     }
 
-    if (evt.code === window.enterCode && cancelButton === document.activeElement) {
+    if (evt.code === window.ENTER_CODE && cancelButton === document.activeElement) {
       applyFilter('none', oldFilter);
       hideElement(uploadForm);
       chooseFileForm.reset();
@@ -88,7 +88,7 @@
   window.setFilterLevel = function (lineWidth) {
     handler.style.left = lineWidth + 'px';
     progressLine.style.width = lineWidth + 'px';
-    var k = lineWidth / lineMaxWidth;
+    var handlerLevel = lineWidth / lineMaxWidth;
     var stringLevel;
     function applyLevel(string) {
       document.querySelector('.filter-image-preview').style.filter = string;
@@ -96,19 +96,19 @@
 
     switch (oldFilter) {
       case 'chrome':
-        stringLevel = 'grayscale(' + k + ')';
+        stringLevel = 'grayscale(' + handlerLevel + ')';
         break;
       case 'sepia':
-        stringLevel = 'sepia(' + k + ')';
+        stringLevel = 'sepia(' + handlerLevel + ')';
         break;
       case 'marvin':
-        stringLevel = 'invert(' + k * 100 + '%)';
+        stringLevel = 'invert(' + handlerLevel * 100 + '%)';
         break;
       case 'phobos':
-        stringLevel = 'blur(' + k * 3 + 'px)';
+        stringLevel = 'blur(' + handlerLevel * 3 + 'px)';
         break;
       case 'heat':
-        stringLevel = 'brightness(' + k * 3 + ')';
+        stringLevel = 'brightness(' + handlerLevel * 3 + ')';
         break;
     }
     applyLevel(stringLevel);
