@@ -19,8 +19,8 @@
   function onLoad(photoArray) {
     function getElementPic(photo) {
       var element = template.content.cloneNode(true);
-      var pic = element.querySelector('img');
-      pic.src = photo.url;
+      var picture = element.querySelector('img');
+      picture.src = photo.url;
       element.querySelector('.picture-likes').textContent = photo.likes;
       element.querySelector('.picture-comments').textContent = photo.comments.length;
       element.querySelector('img').setAttribute('tabindex', '0');
