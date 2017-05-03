@@ -11,8 +11,6 @@
     } else {
       window.galleryUtils.showElement(progressBar);
     }
-
     return filterSelected;
-
   };
 })(window);

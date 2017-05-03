@@ -1,17 +1,17 @@
 'use strict';
 (function () {
+  window.filterName = '';
+  window.ESC_CODE = 27;
+  window.ENTER_CODE = 13;
   var showElement = window.galleryUtils.showElement;
   var hideElement = window.galleryUtils.hideElement;
   var isElementHidden = window.galleryUtils.isElementHidden;
   var picElement = document.querySelector('.filter-image-preview');
-  window.filterName = '';
   var defaultScale = 100;
   var form = document.querySelector('.upload-filter');
   var uploadForm = document.querySelector('.upload-overlay');
   var commentField = form.querySelector('.upload-form-description');
   var cancelButton = document.querySelector('.upload-form-cancel');
-  window.ESC_CODE = 27;
-  window.ENTER_CODE = 13;
   var chooseFileForm = document.querySelector('.upload-form');
   var filterLevel = document.querySelector('.upload-filter-level');
 
@@ -59,7 +59,6 @@
     window.initializeScale(evt.target, setScale);
   });
 
-
   var applyFilter = function (oldFilter, newFilter) {
     picElement.classList.remove('filter-' + oldFilter);  // сделать нормально
     if (newFilter === 'none') {
@@ -71,12 +70,13 @@
   hideElement(filterLevel);
 
   var oldFilter;
+  var firstFilterLevel = 0.2;
 
   document.querySelector('.upload-filter-controls').addEventListener('click', function (evt) {
     if (evt.target.name === 'upload-filter') {
       var filterSelected = evt.target;
       oldFilter = window.initializeFilters(filterSelected, applyFilter, oldFilter);
-      var defaultFilterLevel = document.querySelector('.upload-filter-level-line').offsetWidth * 0.2;
+      var defaultFilterLevel = document.querySelector('.upload-filter-level-line').offsetWidth * firstFilterLevel;
       window.setFilterLevel(defaultFilterLevel);
     }
   });

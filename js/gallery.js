@@ -24,14 +24,13 @@ window.galleryUtils = (function () {
     return element.classList.contains(hiddenClass);
   }
 
-
   closePicture.addEventListener('click', function () {
     hideOverlay();
   });
 
   gallery.addEventListener('click', function (evt) {
     evt.preventDefault();
-    if (evt.target.src) {
+    if (evt.target.tagName.toUpperCase() === 'IMG') {
       focusPicture = evt.target;
       window.showPicOverlay(focusPicture);
     }
@@ -40,7 +39,7 @@ window.galleryUtils = (function () {
   gallery.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.ENTER_CODE) {
       evt.preventDefault();
-      if (evt.target.src) {
+      if (evt.target.tagName.toUpperCase() === 'IMG') {
         focusPicture = evt.target;
       } else {
         focusPicture = evt.target.querySelector('img');
@@ -48,7 +47,6 @@ window.galleryUtils = (function () {
       window.showPicOverlay(focusPicture);
     }
   });
-
 
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.ESC_CODE && !galleryOverlay.classList.contains(hiddenClass)) {

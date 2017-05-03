@@ -30,14 +30,12 @@
           sortedPics.push(pics[picsIndex[i]]);
         }
         showSorted(sortedPics);
-
         break;
       case 'filter-discussed':
         sortedPics = pics.slice();
         sortedPics.sort(function (first, second) {
           return Math.sign(second.comments.length - first.comments.length);
         });
-
         showSorted(sortedPics);
         break;
     }

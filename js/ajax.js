@@ -7,7 +7,6 @@
       document.appendChild(message);
     }
 
-
     xhr.open('GET', url);
     xhr.send();
     var error;
