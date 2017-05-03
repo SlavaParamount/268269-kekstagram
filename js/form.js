@@ -143,10 +143,9 @@
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
+    commentField.style.border = '';
     if ((commentField.value.length < minTextLength) || (commentField.value.length > maxTextLength)) {
       commentField.style.border = '2px solid #CD5C5C';
-    } else {
-      commentField.style.border = '';
     }
   });
 })();
